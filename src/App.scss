@@ -3,8 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.App{
+  display: flex;
+  flex-wrap: wrap;
+}
 .header {
+ width: 100%;
   background-color: lightgray;
   padding: 5px 10px;
   display: flex;
@@ -39,6 +43,17 @@
     // }
   }
 }
+.sidebar{
+  width: 300px;
+  background-color: tomato;
+  height: 100vh;
+}
+// .main_page{
+//   display: flex;
+// }
+// .new_note{
+//   margin-left: 400px;
+// }
 :where(.css-dev-only-do-not-override-yp8pcc).ant-select-single:not(
     .ant-select-customize-input
   )

@@ -4,6 +4,8 @@ import Header from "./Header";
 import { v4 as uuidv4 } from 'uuid';
 import { Routes, Route } from "react-router";
 import NewNote from "./NewNote";
+import Sidebar from "./Sidebar";
+import WorkSpace from "./WorkSpace";
 
 const messageData = [
   {
@@ -61,10 +63,22 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Header />}>
-          <Route path="/new" element={<NewNote/>}/>
+          
+            <Route path="/" element={<Sidebar />} >
+              <Route path="/main" element={<WorkSpace />} />
+              <Route path="/new" element={<NewNote />} />
+
+            </Route>
+
+         
+
+
+
+
+
         </Route>
       </Routes>
-      
+
     </div>
   );
 }
