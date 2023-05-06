@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import "../App.scss";
 import Header from "./Header";
 import { v4 as uuidv4 } from 'uuid';
+import { Routes, Route } from "react-router";
+import NewNote from "./NewNote";
+
 const messageData = [
   {
     id: uuidv4(),
@@ -56,7 +59,12 @@ function App() {
   }, [])
   return (
     <div className="App">
-      <Header />
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route path="/new" element={<NewNote/>}/>
+        </Route>
+      </Routes>
+      
     </div>
   );
 }
