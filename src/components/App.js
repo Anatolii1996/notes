@@ -13,7 +13,7 @@ const messageData = [
     date: "8/21/16",
     text: `#### Wow, what a cool note. Wow.
 
-**12:17 PM** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
+**8/21/16** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
   
   },
   {
