@@ -6,19 +6,23 @@ import { Routes, Route } from "react-router";
 import NewNote from "./NewNote";
 import Sidebar from "./Sidebar";
 import WorkSpace from "./WorkSpace";
+import moment from "moment";
 
 const messageData = [
   {
     id: uuidv4(),
-    text: "Wow, what a cool note. Wow. This is amazing note. Can you believe how grate this note is? It`s the best note."
+    text: "Wow, what a cool note. Wow. This is amazing note. Can you believe how grate this note is? It`s the best note.",
+  date: moment().format("LL HH:mm")
   },
   {
     id: uuidv4(),
-    text: "Can you check the flight schedule? How?"
+    text: "Can you check the flight schedule? How?",
+    date: moment().format("LL HH:mm")
   },
   {
     id: uuidv4(),
-    text: "OSX.com daily example Locked"
+    text: "OSX.com daily example Locked",
+    date: moment().format("LL HH:mm")
   },
 ]
 
@@ -133,7 +137,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
 
-          <Route path="/" element={<Sidebar />} >
+          <Route path="/" element={<Sidebar notes={notes} />} >
             <Route path="/main" element={<WorkSpace />} />
             <Route path="/new" element={<NewNote setNotes={setNotes} />} />
 

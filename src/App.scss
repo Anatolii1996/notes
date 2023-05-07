@@ -6,6 +6,7 @@
 .App {
   display: flex;
   flex-wrap: wrap;
+ 
   .header {
     width: 100%;
     background-color: lightgray;
@@ -44,8 +45,8 @@
   }
   .sidebar {
     width: 30%;
-    background-color: tomato;
-    height: 100vh;
+   
+    // height: 100vh;
     overflow-y: scroll;
   }
   .new_note{
