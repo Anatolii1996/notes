@@ -3,58 +3,54 @@
   padding: 0;
   box-sizing: border-box;
 }
-.App{
+.App {
   display: flex;
   flex-wrap: wrap;
-}
-.header {
- width: 100%;
-  background-color: lightgray;
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .btn_group {
-    svg {
-      box-sizing: content-box;
-      background-color: beige;
-      padding: 2px 10px;
-      font-size: 25px;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    a + svg {
-      margin-left: 10px;
-    }
-    svg + svg {
-      margin-left: 10px;
-    }
-  }
-  .search {
-    background-color: beige;
-    border-radius: 5px;
+  .header {
+    width: 100%;
+    background-color: lightgray;
+    padding: 5px 10px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding-left: 90px;
-    // input {
-    //   width: 150px;
+    .btn_group {
+      svg {
+        box-sizing: content-box;
+        background-color: beige;
+        padding: 2px 10px;
+        font-size: 25px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      a + svg {
+        margin-left: 10px;
+      }
+      svg + svg {
+        margin-left: 10px;
+      }
+    }
+    .search {
+      background-color: beige;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding-left: 90px;
+      // input {
+      //   width: 150px;
 
-    // }
+      // }
+    }
+  }
+  .sidebar {
+    width: 300px;
+    background-color: tomato;
+    height: 100vh;
+    overflow-y: scroll;
   }
 }
-.sidebar{
-  width: 300px;
-  background-color: tomato;
-  height: 100vh;
-  overflow-y: scroll;
-}
-// .main_page{
-//   display: flex;
-// }
-// .new_note{
-//   margin-left: 400px;
-// }
+
+
 :where(.css-dev-only-do-not-override-yp8pcc).ant-select-single:not(
     .ant-select-customize-input
   )
@@ -63,13 +59,8 @@
   border: 0;
   background-color: inherit;
   padding-left: 5px;
-}
-
-// .ant-select-focused:where(
-//     .css-dev-only-do-not-override-yp8pcc
-//   ).ant-select:not(.ant-select-disabled):not(
-//     .ant-select-customize-input
-//   ):not(.ant-pagination-size-changer)
-  .ant-select-selector {
   box-shadow: none !important;
 }
+
+
+
