@@ -10,7 +10,7 @@ import WorkSpace from "./WorkSpace";
 const messageData = [
   {
     id: uuidv4(),
-    date: "12:17 PM",
+    date: "8/21/16",
     text: `#### Wow, what a cool note. Wow.
 
 **12:17 PM** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
@@ -145,7 +145,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
 
-          <Route path="/" element={<Sidebar notes={notes} />} >
+          <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes}/>} >
             <Route path="/main" element={<WorkSpace />} />
             <Route path="/new" element={<NewNote setNotes={setNotes} />} />
 
