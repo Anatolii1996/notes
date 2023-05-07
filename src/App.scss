@@ -43,10 +43,20 @@
     }
   }
   .sidebar {
-    width: 300px;
+    width: 30%;
     background-color: tomato;
     height: 100vh;
     overflow-y: scroll;
+  }
+  .new_note{
+    width: 70%;
+    padding: 15px;
+    .time{
+      text-align: center;
+      color: lightgrey;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
   }
 }
 

@@ -10,18 +10,15 @@ import WorkSpace from "./WorkSpace";
 const messageData = [
   {
     id: uuidv4(),
-    title: "Wow, what a cool note. Wow",
-    text: "This is amazing note. Can you believe how grate this note is? It`s the best note."
+    text: "Wow, what a cool note. Wow. This is amazing note. Can you believe how grate this note is? It`s the best note."
   },
   {
     id: uuidv4(),
-    title: "Can you check the flight schedule?",
-    text: "How?"
+    text: "Can you check the flight schedule? How?"
   },
   {
     id: uuidv4(),
-    title: "OSX.com daily example",
-    text: "Locked"
+    text: "OSX.com daily example Locked"
   },
 ]
 
@@ -54,7 +51,7 @@ const createCollection = () => {
 }
 
 function App() {
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState(messageData);
 
   useEffect(() => {
     createCollection()
@@ -63,19 +60,12 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Header />}>
-          
-            <Route path="/" element={<Sidebar />} >
-              <Route path="/main" element={<WorkSpace />} />
-              <Route path="/new" element={<NewNote />} />
 
-            </Route>
+          <Route path="/" element={<Sidebar />} >
+            <Route path="/main" element={<WorkSpace />} />
+            <Route path="/new" element={<NewNote setNotes={setNotes}/>} />
 
-         
-
-
-
-
-
+          </Route>
         </Route>
       </Routes>
 
