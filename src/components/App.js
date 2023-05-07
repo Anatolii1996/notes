@@ -29,11 +29,11 @@ const createCollection = () => {
     console.log("Error browser");
     return
   }
-  // console.log(idb);
   const request = idb.open("MessagesDB", 2);
 
   request.onerror = (event) => {
     console.log("Error", event);
+
   };
 
   request.onupgradeneeded = (event) => {
@@ -46,16 +46,71 @@ const createCollection = () => {
   };
 
   request.onsuccess = () => {
-    console.log("Succsses");
-  }
-}
+    console.log("Success");
+    const db = request.result;
+    const tx = db.transaction("MessageStore", "readwrite");
+    const store = tx.objectStore("MessageStore");
+
+    messageData.forEach((message) => {
+      store.put(message, message.id);
+    });
+
+    tx.oncomplete = () => {
+      db.close();
+      console.log("Messages added");
+    };
+  };
+};
 
 function App() {
   const [notes, setNotes] = useState(messageData);
 
   useEffect(() => {
     createCollection()
-  }, [])
+  }, []);
+
+  // useEffect(() => {
+  //   const dbPromise = idb.open("MessagesDB", 2);
+  //   dbPromise.onsuccess = () => {
+  //     const db = dbPromise.result;
+
+  //     const tx = db.transaction("MessageStore", "readwrite");
+  //     const MessageStore = tx.objectStore("MessageStore");
+  //     const message=MessageStore.put({
+  //       id: 1,
+  //       text: notes
+  //     });
+  //     message.onsuccess=()=>{
+  //       tx.oncomplete=()=>{
+  //         db.close();
+  //       }
+  //       console.log("mes added");
+  //     };
+  //     message.onerror=(event)=>{
+       
+  //       console.log(event);
+  //     }
+  //   }
+  // }, [notes])
+
+  // useEffect(() => {
+  //   const updateDatabase = async () => {
+  //     try {
+  //       const db = await idb.open("MessagesDB", 2);
+  //       const tx = db.transaction("MessageStore", "readwrite");
+  //       const messageStore = tx.objectStore("MessageStore");
+  //       const message = { id: uuidv4(), notes };
+  //       await messageStore.put(message);
+  //       console.log("Message added");
+  //       tx.oncomplete = () => db.close();
+  //     } catch (error) {
+  //       console.log("Error:", error);
+  //     }
+  //   };
+
+  //   updateDatabase();
+  // }, [notes]);
+
   return (
     <div className="App">
       <Routes>
@@ -63,7 +118,7 @@ function App() {
 
           <Route path="/" element={<Sidebar />} >
             <Route path="/main" element={<WorkSpace />} />
-            <Route path="/new" element={<NewNote setNotes={setNotes}/>} />
+            <Route path="/new" element={<NewNote setNotes={setNotes} />} />
 
           </Route>
         </Route>

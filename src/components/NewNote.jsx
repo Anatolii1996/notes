@@ -22,7 +22,10 @@ const NewNote = ({ setNotes }) => {
         onChange={(e) => {
           setNewNote(e.target.value);
         }}
-        onBlur={()=>{setNotes((prev) => [...prev, { id: uuidv4(), text: newNote }])}}
+        onBlur={()=>{
+          setNotes((prev) => [...prev, { id: uuidv4(), text: newNote }]);
+          setNewNote("")
+        }}
         cols="100"
         rows="10"
       ></textarea>
