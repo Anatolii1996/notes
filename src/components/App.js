@@ -11,18 +11,22 @@ import moment from "moment";
 const messageData = [
   {
     id: uuidv4(),
-    text: "Wow, what a cool note. Wow. This is amazing note. Can you believe how grate this note is? It`s the best note.",
-  date: moment().format("LL HH:mm")
+    date: moment().format("LL HH:mm"),
+    text: `Wow, what a cool note. Wow.
+    This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
+  
   },
   {
     id: uuidv4(),
+    date: moment().format("LL HH:mm"),
     text: "Can you check the flight schedule? How?",
-    date: moment().format("LL HH:mm")
+    
   },
   {
     id: uuidv4(),
+    date: moment().format("LL HH:mm"),
     text: "OSX.com daily example Locked",
-    date: moment().format("LL HH:mm")
+    
   },
 ]
 
