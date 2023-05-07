@@ -52,7 +52,24 @@ const createCollection = () => {
     const store = tx.objectStore("MessageStore");
 
     messageData.forEach((message) => {
-      store.put(message, message.id);
+      const getRequest = store.get(message.id);
+      getRequest.onsuccess = (event) => {
+        const existingMessage = event.target.result;
+  
+        if (!existingMessage) {
+          store.add(message);
+          console.log("Message added");
+        } else {
+          console.log("Message already exists");
+        }
+  
+        tx.oncomplete = () => {
+          db.close();
+        };
+      };
+      getRequest.onerror = (event) => {
+        console.log("Error", event);
+      };
     });
 
     tx.oncomplete = () => {
