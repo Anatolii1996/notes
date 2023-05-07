@@ -13,6 +13,11 @@ const NewNote = ({ setNotes }) => {
     return () => clearInterval(intervalId);
   }, []);
 
+  const convertToMark = (note) => {
+    const changedHead ="#### "+ note.split("\n")[0]+"\n";
+    const changedBody=String(`**${moment().format("LL HH:mm")}**`)+" " + note.split("\n")[1];
+   return changedHead+changedBody;
+  };
 
   return (
     <div className="new_note">
@@ -22,9 +27,17 @@ const NewNote = ({ setNotes }) => {
         onChange={(e) => {
           setNewNote(e.target.value);
         }}
-        onBlur={()=>{
-          setNotes((prev) => [...prev, { id: uuidv4(), text: newNote }]);
-          setNewNote("")
+        onBlur={() => {
+          setNotes((prev) => [
+            {
+              id: uuidv4(),
+              text: convertToMark(newNote),
+              date: String(moment().format("LL HH:mm")),
+            },
+            ...prev,
+          ]);
+          setNewNote("");
+          convertToMark(newNote);
         }}
         cols="100"
         rows="10"

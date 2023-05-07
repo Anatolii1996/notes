@@ -6,26 +6,30 @@ import { Routes, Route } from "react-router";
 import NewNote from "./NewNote";
 import Sidebar from "./Sidebar";
 import WorkSpace from "./WorkSpace";
-import moment from "moment";
 
 const messageData = [
   {
     id: uuidv4(),
-    date: moment().format("LL HH:mm"),
-    text: `Wow, what a cool note. Wow.
-    This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
+    date: "12:17 PM",
+    text: `#### Wow, what a cool note. Wow.
+
+**12:17 PM** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
   
   },
   {
     id: uuidv4(),
-    date: moment().format("LL HH:mm"),
-    text: "Can you check the flight schedule? How?",
+    date: "5/15/16",
+    text: `#### Can you check the flight schedule?
+    
+**5/15/16** how`,
     
   },
   {
     id: uuidv4(),
-    date: moment().format("LL HH:mm"),
-    text: "OSX.com daily example Locked",
+    date: "3/23/16",
+    text: `#### OSX.com daily example
+    
+**3/23/16** Locked`,
     
   },
 ]

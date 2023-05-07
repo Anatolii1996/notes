@@ -1,6 +1,8 @@
+import ReactMarkdown from 'react-markdown'
+
 const ListItem = ({note}) => {
   return <div className="list_item">
-    <p>{note.text}</p>
+    <ReactMarkdown>{note.text}</ReactMarkdown>
   </div>;
 };
 export default ListItem;

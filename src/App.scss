@@ -59,6 +59,18 @@
       margin-bottom: 15px;
     }
   }
+  .list_item{
+    padding: 10px 15px;
+    border-bottom: 1px solid lightgray;
+   
+    p{
+      width: 100%;
+      white-space: nowrap;
+      display: inline-block;
+      overflow-x: clip;
+      text-overflow: ellipsis;      
+    }
+  }
 }
 
 
