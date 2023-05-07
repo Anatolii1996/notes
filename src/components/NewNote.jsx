@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 const NewNote = () => {
-  return(
+  const [newNote, setNewNote] = useState("");
+
+  return (
     <div className="new_note">
-        <textarea name="" id="" cols="30" rows="10"></textarea>;
+      <textarea name="" id="" cols="100" rows="10"></textarea>
     </div>
-  ) 
+  );
 };
 export default NewNote;
