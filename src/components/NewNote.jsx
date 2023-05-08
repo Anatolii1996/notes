@@ -38,7 +38,6 @@ const NewNote = ({ setNotes }) => {
             ...prev,
           ]);
           setNewNote("");
-          convertToMark(newNote);
         }}
         cols="100"
         rows="10"

@@ -6,18 +6,19 @@ import { Routes, Route } from "react-router";
 import NewNote from "./NewNote";
 import Sidebar from "./Sidebar";
 import WorkSpace from "./WorkSpace";
+import moment from "moment";
 
 const messageData = [
   {
     id: uuidv4(),
     date: "8/21/16",
-    initialText:`#### Wow, what a cool note. Wow.
+    initialText: `#### Wow, what a cool note. Wow.
 
     **8/21/16** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
     text: `#### Wow, what a cool note. Wow.
 
 **8/21/16** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
-  
+
   },
   {
     id: uuidv4(),
@@ -28,18 +29,18 @@ const messageData = [
     text: `#### Can you check the flight schedule?
     
 **5/15/16** how`,
-    
+
   },
   {
     id: uuidv4(),
     date: "3/23/16",
-    initialText:`#### OSX.com daily example
+    initialText: `#### OSX.com daily example
     
     **3/23/16** Locked`,
     text: `#### OSX.com daily example
     
 **3/23/16** Locked`,
-    
+
   },
 ]
 
@@ -56,39 +57,39 @@ function App() {
       return
     }
     const request = idb.open("MessagesDB", 2);
-  
+
     request.onerror = (event) => {
       console.log("Error", event);
-  
+
     };
-  
+
     request.onupgradeneeded = (event) => {
       const db = request.result;
-  
+
       if (!db.objectStoreNames.contains("MessageStore")) {
         const objectStore = db.createObjectStore("MessageStore", { keyPath: "initialText" });
-  
+
       }
     };
-  
+
     request.onsuccess = () => {
-      console.log("Success");
+      // console.log("Success");
       const db = request.result;
       const tx = db.transaction("MessageStore", "readwrite");
       const store = tx.objectStore("MessageStore");
-  
+
       notes.forEach((message) => {
         const getRequest = store.get(message.initialText);
         getRequest.onsuccess = (event) => {
           const existingMessage = event.target.result;
-    
+
           if (!existingMessage) {
             store.add(message);
             console.log("Message added");
           } else {
             console.log("Message already exists");
           }
-    
+
           tx.oncomplete = () => {
             db.close();
           };
@@ -97,63 +98,104 @@ function App() {
           console.log("Error", event);
         };
       });
-  
+
       tx.oncomplete = () => {
         db.close();
         console.log("Messages added");
       };
     };
   };
+  const findDate = (str) => {
+    let date = new Date(str);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1; // Месяцы начинаются с 0, поэтому нужно добавить 1
+    let day = date.getDate();
+    let formattedDate = `${year}${month.toString().padStart(2, "0")}${day
+      .toString()
+      .padStart(2, "0")}`;
+    return formattedDate;
+  };
 
- 
 
   useEffect(() => {
     if (!idb) {
       console.log("Error browser");
       return;
     }
-  
+
     const request = idb.open("MessagesDB", 2);
-  
+
     request.onerror = (event) => {
       console.log("Error", event);
     };
-  
+
     request.onsuccess = (event) => {
-      console.log("Success");
-  
+      // console.log("Success");
+
       const db = event.target.result;
-      const tx = db.transaction("MessageStore", "readonly");
+      const tx = db.transaction("MessageStore", "readwrite");
       const store = tx.objectStore("MessageStore");
       const getAllRequest = store.getAll();
-  
+
       getAllRequest.onsuccess = (event) => {
         const messages = event.target.result;
-  
+
         if (messages && messages.length) {
-          setNotes(messages);
+          // console.log(messages);
+          setNotes(prev=> {
+            const newMess=[...messages];
+          //  console.log(messages);
+             newMess.forEach((el) => {
+              const noteDate = findDate(el.date);
+              const currentDay = moment().format("YYYYMMDD");
+              // console.log(el);
+              // console.log(noteDate);
+              // console.log(currentDay);
+              if (currentDay == noteDate) {
+                const start = el.text.indexOf("**");
+                const end = el.text.lastIndexOf("**");
+
+                // Если в тексте заметки найдены оба разделителя "**"
+                if (start !== -1 && end !== -1) {
+                  // Заменим фрагмент между разделителями на новый текст
+                  const newText = String(`**${moment().format("HH:mm A")}**`);
+                  return el.text = el.text.substring(0, start + 2) + newText + el.text.substring(end);
+                }
+              }else{
+                const start = el.text.indexOf("**");
+                const end = el.text.lastIndexOf("**");
+                if (start !== -1 && end !== -1) {
+                  // Заменим фрагмент между разделителями на новый текст
+                  const newText = String(`**${moment().format("M/D/YY")}**`);
+                  return el.text = el.text.substring(0, start + 2) + newText + el.text.substring(end);
+                }
+              }
+            });
+            return newMess;
+          });
+          console.log(33333);
         } else {
           createCollection();
         }
       };
-  
+
       getAllRequest.onerror = (event) => {
         console.log("Error", event);
       };
     };
-  
+
     request.onupgradeneeded = (event) => {
       const db = event.target.result;
-  
+
       if (!db.objectStoreNames.contains("MessageStore")) {
         const objectStore = db.createObjectStore("MessageStore", { keyPath: "initialText" });
       }
     };
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     createCollection()
-    console.log(222222222)
+    // console.log(222222222)
   }, [notes])
 
 
@@ -162,7 +204,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
 
-          <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes}/>} >
+          <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate}/>} >
             <Route path="/main" element={<WorkSpace />} />
             <Route path="/new" element={<NewNote setNotes={setNotes} />} />
 
