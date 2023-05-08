@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
 
-const ListItem = ({ note, setNotes,  findDate }) => {
-  
+const ListItem = ({ note, setNotes, findDate }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
   useEffect(() => {
     const noteDate = findDate(note.date);
     const currentDay = moment().format("YYYYMMDD");
@@ -23,16 +24,15 @@ const ListItem = ({ note, setNotes,  findDate }) => {
             String(`**${moment().format("HH:mm A")}**`)
           ),
         };
-       
+
         // return the updated notes array
         return updatedNotes;
       });
     }
   }, []);
 
-
   return (
-    <div className="list_item">
+    <div className={`list_item ${isClicked?"clicked":""}`} onClick={()=>{setIsClicked(!isClicked)}}>
       <ReactMarkdown>{note.text}</ReactMarkdown>
     </div>
   );

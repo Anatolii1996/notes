@@ -46,8 +46,6 @@ const messageData = [
 
 const idb = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB;
 
-
-
 function App() {
   const [notes, setNotes] = useState(messageData);
 
@@ -141,16 +139,11 @@ function App() {
         const messages = event.target.result;
 
         if (messages && messages.length) {
-          // console.log(messages);
           setNotes(prev=> {
             const newMess=[...messages];
-          //  console.log(messages);
              newMess.forEach((el) => {
               const noteDate = findDate(el.date);
               const currentDay = moment().format("YYYYMMDD");
-              // console.log(el);
-              // console.log(noteDate);
-              // console.log(currentDay);
               if (currentDay == noteDate) {
                 const start = el.text.indexOf("**");
                 const end = el.text.lastIndexOf("**");
@@ -173,7 +166,6 @@ function App() {
             });
             return newMess;
           });
-          console.log(33333);
         } else {
           createCollection();
         }
@@ -195,7 +187,6 @@ function App() {
 
   useEffect(() => {
     createCollection()
-    // console.log(222222222)
   }, [notes])
 
 

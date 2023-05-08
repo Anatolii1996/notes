@@ -6,7 +6,7 @@
 .App {
   display: flex;
   flex-wrap: wrap;
- 
+
   .header {
     width: 100%;
     background-color: lightgray;
@@ -45,34 +45,38 @@
   }
   .sidebar {
     width: 30%;
-   
+    padding-top: 15px;
     // height: 100vh;
     overflow-y: scroll;
   }
-  .new_note{
+  .new_note {
     width: 70%;
     padding: 15px;
-    .time{
+    .time {
       text-align: center;
       color: lightgrey;
       font-weight: 500;
       margin-bottom: 15px;
     }
   }
-  .list_item{
+  .list_item {
     padding: 10px 15px;
     border-bottom: 1px solid lightgray;
-   
-    p{
+    &:hover {
+      background-color: lightgray;
+    }
+    p {
       width: 100%;
       white-space: nowrap;
       display: inline-block;
       overflow-x: clip;
-      text-overflow: ellipsis;      
+      text-overflow: ellipsis;
     }
   }
+  .clicked{
+    background-color: gray;
+  }
 }
-
 
 :where(.css-dev-only-do-not-override-yp8pcc).ant-select-single:not(
     .ant-select-customize-input
@@ -84,6 +88,3 @@
   padding-left: 5px;
   box-shadow: none !important;
 }
-
-
-
