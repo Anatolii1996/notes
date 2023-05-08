@@ -48,6 +48,7 @@ const idb = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB;
 
 function App() {
   const [notes, setNotes] = useState(messageData);
+  const [idClicked, setIdClicked] = useState(notes[0].id);
 
   const createCollection = () => {
     if (!idb) {
@@ -114,7 +115,6 @@ function App() {
     return formattedDate;
   };
 
-
   useEffect(() => {
     if (!idb) {
       console.log("Error browser");
@@ -139,9 +139,9 @@ function App() {
         const messages = event.target.result;
 
         if (messages && messages.length) {
-          setNotes(prev=> {
-            const newMess=[...messages];
-             newMess.forEach((el) => {
+          setNotes(prev => {
+            const newMess = [...messages];
+            newMess.forEach((el) => {
               const noteDate = findDate(el.date);
               const currentDay = moment().format("YYYYMMDD");
               if (currentDay == noteDate) {
@@ -154,7 +154,7 @@ function App() {
                   const newText = String(`**${moment().format("HH:mm A")}**`);
                   return el.text = el.text.substring(0, start + 2) + newText + el.text.substring(end);
                 }
-              }else{
+              } else {
                 const start = el.text.indexOf("**");
                 const end = el.text.lastIndexOf("**");
                 if (start !== -1 && end !== -1) {
@@ -195,8 +195,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
 
-          <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate}/>} >
-            <Route path="/main" element={<WorkSpace />} />
+          <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate} setIdClicked={setIdClicked}
+            idClicked={idClicked} />} >
+            <Route path="/" element={<WorkSpace notes={notes} idClicked={idClicked}/>} />
             <Route path="/new" element={<NewNote setNotes={setNotes} />} />
 
           </Route>

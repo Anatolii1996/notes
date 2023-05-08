@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import ListItem from "./ListItem";
 
-const Sidebar = ({ notes, setNotes, findDate }) => {
-  const [idClicked, setIdClicked] = useState(null);
+const Sidebar = ({ notes, setNotes, findDate, idClicked, setIdClicked }) => {
+  
 
   return (
     <>
