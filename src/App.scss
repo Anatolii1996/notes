@@ -75,6 +75,9 @@
   }
   .clicked{
     background-color: gray;
+    &:hover{
+      background-color: gray;
+    }
   }
 }
 

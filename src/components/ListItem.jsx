@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
 
-const ListItem = ({ note, setNotes, findDate }) => {
-  const [isClicked, setIsClicked] = useState(false);
+const ListItem = ({ note, setNotes, findDate, setIdClicked, idClicked }) => {
+  // const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     const noteDate = findDate(note.date);
@@ -31,8 +31,10 @@ const ListItem = ({ note, setNotes, findDate }) => {
     }
   }, []);
 
+
+
   return (
-    <div className={`list_item ${isClicked?"clicked":""}`} onClick={()=>{setIsClicked(!isClicked)}}>
+    <div className={`list_item ${idClicked==note.id?"clicked":""}`} onClick={()=>{setIdClicked(note.id)}}>
       <ReactMarkdown>{note.text}</ReactMarkdown>
     </div>
   );
