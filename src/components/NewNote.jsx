@@ -31,8 +31,9 @@ const NewNote = ({ setNotes }) => {
           setNotes((prev) => [
             {
               id: uuidv4(),
+              initialText: convertToMark(newNote),
               text: convertToMark(newNote),
-              date: String(moment().format("LL HH:mm")),
+              date: String(moment().format("M/D/YY")),
             },
             ...prev,
           ]);

@@ -14,30 +14,33 @@ const ListItem = ({ note, setNotes, notes }) => {
     return formattedDate;
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const noteDate = findDate(note.date);
     const currentDay = moment().format("YYYYMMDD");
-    if(currentDay==noteDate){
-        setNotes(notes => {
-            // make a copy of the notes array
-            const updatedNotes = [...notes];
-            
-            // find the index of the note to update
-            const index = updatedNotes.findIndex(el => el.id === note.id);
-            
-            // update the text of the note with the current time
-            updatedNotes[index] = {
-              ...updatedNotes[index],
-              text: updatedNotes[index].text.replace(/\*\*(.*?)\*\*/g, String(`**${moment().format("HH:mm A")}**`))
-            };
-      
-            // return the updated notes array
-            return updatedNotes;
-          });
-        // setNotes()
-        // console.log(notes.find((el)=>el.id==note.id).text.replace(/\*\*(.*?)\*\*/g, String(moment().format("HH:mm A"))));
+    if (currentDay == noteDate) {
+      setNotes((notes) => {
+        // make a copy of the notes array
+        const updatedNotes = [...notes];
+
+        // find the index of the note to update
+        const index = updatedNotes.findIndex((el) => el.id === note.id);
+
+        // update the text of the note with the current time
+        updatedNotes[index] = {
+          ...updatedNotes[index],
+          text: updatedNotes[index].text.replace(
+            /\*\*(.*?)\*\*/g,
+            String(`**${moment().format("HH:mm A")}**`)
+          ),
+        };
+        console.log(11111111);
+        // return the updated notes array
+        return updatedNotes;
+      });
+      // setNotes()
+      // console.log(notes.find((el)=>el.id==note.id).text.replace(/\*\*(.*?)\*\*/g, String(moment().format("HH:mm A"))));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {}, []);
 

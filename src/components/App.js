@@ -11,6 +11,9 @@ const messageData = [
   {
     id: uuidv4(),
     date: "8/21/16",
+    initialText:`#### Wow, what a cool note. Wow.
+
+    **8/21/16** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
     text: `#### Wow, what a cool note. Wow.
 
 **8/21/16** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
@@ -19,6 +22,9 @@ const messageData = [
   {
     id: uuidv4(),
     date: "5/15/16",
+    initialText: `#### Can you check the flight schedule?
+    
+    **5/15/16** how`,
     text: `#### Can you check the flight schedule?
     
 **5/15/16** how`,
@@ -27,6 +33,9 @@ const messageData = [
   {
     id: uuidv4(),
     date: "3/23/16",
+    initialText:`#### OSX.com daily example
+    
+    **3/23/16** Locked`,
     text: `#### OSX.com daily example
     
 **3/23/16** Locked`,
@@ -57,7 +66,7 @@ function App() {
       const db = request.result;
   
       if (!db.objectStoreNames.contains("MessageStore")) {
-        const objectStore = db.createObjectStore("MessageStore", { keyPath: "id" });
+        const objectStore = db.createObjectStore("MessageStore", { keyPath: "initialText" });
   
       }
     };
@@ -69,7 +78,7 @@ function App() {
       const store = tx.objectStore("MessageStore");
   
       notes.forEach((message) => {
-        const getRequest = store.get(message.id);
+        const getRequest = store.get(message.initialText);
         getRequest.onsuccess = (event) => {
           const existingMessage = event.target.result;
     
@@ -96,12 +105,55 @@ function App() {
     };
   };
 
+ 
+
   useEffect(() => {
-    createCollection()
+    if (!idb) {
+      console.log("Error browser");
+      return;
+    }
+  
+    const request = idb.open("MessagesDB", 2);
+  
+    request.onerror = (event) => {
+      console.log("Error", event);
+    };
+  
+    request.onsuccess = (event) => {
+      console.log("Success");
+  
+      const db = event.target.result;
+      const tx = db.transaction("MessageStore", "readonly");
+      const store = tx.objectStore("MessageStore");
+      const getAllRequest = store.getAll();
+  
+      getAllRequest.onsuccess = (event) => {
+        const messages = event.target.result;
+  
+        if (messages && messages.length) {
+          setNotes(messages);
+        } else {
+          createCollection();
+        }
+      };
+  
+      getAllRequest.onerror = (event) => {
+        console.log("Error", event);
+      };
+    };
+  
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+  
+      if (!db.objectStoreNames.contains("MessageStore")) {
+        const objectStore = db.createObjectStore("MessageStore", { keyPath: "initialText" });
+      }
+    };
   }, []);
 
   useEffect(()=>{
     createCollection()
+    console.log(222222222)
   }, [notes])
 
 
