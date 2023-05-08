@@ -7,6 +7,7 @@ import NewNote from "./NewNote";
 import Sidebar from "./Sidebar";
 import WorkSpace from "./WorkSpace";
 import moment from "moment";
+import TimeHeader from "./TimeHeader";
 
 const messageData = [
   {
@@ -186,7 +187,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    createCollection()
+    createCollection();
+    setIdClicked(notes[0].id)
   }, [notes])
 
 
@@ -197,8 +199,11 @@ function App() {
 
           <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate} setIdClicked={setIdClicked}
             idClicked={idClicked} />} >
-            <Route path="/" element={<WorkSpace notes={notes} idClicked={idClicked}/>} />
-            <Route path="/new" element={<NewNote setNotes={setNotes} />} />
+            <Route path="/" element={<TimeHeader />}>
+              <Route path="/" element={<WorkSpace notes={notes} idClicked={idClicked} />} />
+              <Route path="/new" element={<NewNote setNotes={setNotes} />} />
+            </Route>
+
 
           </Route>
         </Route>

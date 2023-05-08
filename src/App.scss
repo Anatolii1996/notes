@@ -52,13 +52,18 @@
   .new_note {
     width: 70%;
     padding: 15px;
-    .time {
-      text-align: center;
-      color: lightgrey;
-      font-weight: 500;
-      margin-bottom: 15px;
-    }
+   
   }
+  .time_header{
+   padding: 15px;
+    .time {
+    text-align: center;
+    color: lightgrey;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+  }
+  
   .list_item {
     padding: 10px 15px;
     border-bottom: 1px solid lightgray;
