@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
 const NewNote = ({ setNotes }) => {
   const [newNote, setNewNote] = useState("");
+
+  const navigate = useNavigate();
 
   const convertToMark = (note) => {
     const changedHead = "#### " + note.split("\n")[0] + "\n";
@@ -30,6 +33,7 @@ const NewNote = ({ setNotes }) => {
             ...prev,
           ]);
           setNewNote("");
+          navigate("/")
         }}
         cols="100"
         rows="10"
