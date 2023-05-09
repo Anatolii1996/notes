@@ -183,15 +183,16 @@ function App() {
                   const newText = String(`**${moment().format("HH:mm A")}**`);
                   return el.text = el.text.substring(0, start + 2) + newText + el.text.substring(end);
                 }
-              } else {
-                const start = el.text.indexOf("**");
-                const end = el.text.lastIndexOf("**");
-                if (start !== -1 && end !== -1) {
-                  // Заменим фрагмент между разделителями на новый текст
-                  const newText = String(`**${moment().format("M/D/YY")}**`);
-                  return el.text = el.text.substring(0, start + 2) + newText + el.text.substring(end);
-                }
               }
+              //  else {
+              //   const start = el.text.indexOf("**");
+              //   const end = el.text.lastIndexOf("**");
+              //   if (start !== -1 && end !== -1) {
+              //     // Заменим фрагмент между разделителями на новый текст
+              //     const newText = String(`**${moment().format("M/D/YY")}**`);
+              //     return el.text = el.text.substring(0, start + 2) + newText + el.text.substring(end);
+              //   }
+              // }
             });
             return newMess;
           });
