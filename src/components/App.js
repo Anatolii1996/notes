@@ -8,6 +8,7 @@ import Sidebar from "./Sidebar";
 import WorkSpace from "./WorkSpace";
 import moment from "moment";
 import TimeHeader from "./TimeHeader";
+import ChangeNote from "./ChangeNote";
 
 const messageData = [
   {
@@ -224,6 +225,7 @@ function App() {
             <Route path="/" element={<TimeHeader />}>
               <Route path="/" element={<WorkSpace notes={notes} idClicked={idClicked} />} />
               <Route path="/new" element={<NewNote setNotes={setNotes} />} />
+              <Route path="/change" element={<ChangeNote idClicked={idClicked} notes={notes}/>}/>
             </Route>
 
 

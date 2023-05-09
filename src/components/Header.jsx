@@ -17,7 +17,10 @@ const Header = ({removeRecord, idClicked, notes}) => {
           <BsTrash3
            onClick={()=>{removeRecord(notes.find((el)=>el.id==idClicked).initialText)} }
           />
+          <Link to="/change">
           <SlNote />
+          </Link>
+          
         </div>
         <div className="search">
           <SearchOutlined
