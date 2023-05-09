@@ -5,7 +5,7 @@ import moment from "moment";
 import { useSelector, useDispatch } from 'react-redux'
 import { setClicked } from "../redux/idClickedSlice";
 
-const ListItem = ({ note, setNotes, findDate, setIdClicked, idClicked }) => {
+const ListItem = ({ note, setNotes, findDate }) => {
   useEffect(() => {
     const noteDate = findDate(note.date);
     const currentDay = moment().format("YYYYMMDD");
@@ -34,12 +34,14 @@ const ListItem = ({ note, setNotes, findDate, setIdClicked, idClicked }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const idClicked = useSelector((state) => state.idClicked.value);
+ 
   
   return (
     <div
       className={`list_item ${idClicked == note.id ? "clicked" : ""}`}
       onClick={() => {
-        setIdClicked(note.id);
+       
         dispatch(setClicked(note.id))
         navigate("/work");
       }}

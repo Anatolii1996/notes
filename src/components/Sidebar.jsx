@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import ListItem from "./ListItem";
 
-const Sidebar = ({ notes, setNotes, findDate, idClicked, setIdClicked }) => {
+const Sidebar = ({ notes, setNotes, findDate}) => {
   
 
   return (
@@ -16,8 +16,7 @@ const Sidebar = ({ notes, setNotes, findDate, idClicked, setIdClicked }) => {
                 setNotes={setNotes}
                 notes={notes}
                 findDate={findDate}
-                setIdClicked={setIdClicked}
-                idClicked={idClicked}
+               
               />
             );
           })}

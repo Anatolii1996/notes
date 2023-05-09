@@ -5,9 +5,10 @@ import { SlNote } from "react-icons/sl";
 import { AutoComplete, Modal } from "antd";
 import { SearchOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
-const Header = ({ removeRecord, idClicked, notes }) => {
-
+const Header = ({ removeRecord, notes }) => {
+  const idClicked = useSelector((state) => state.idClicked.value);
   const navigate = useNavigate();
 
   const { confirm } = Modal;

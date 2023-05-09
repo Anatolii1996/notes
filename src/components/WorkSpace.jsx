@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { useSelector } from 'react-redux';
 
-const WorkSpace = ({ notes, idClicked }) => {
+const WorkSpace = ({ notes }) => {
   const [currentNote, setCurrentNote] = useState("");
-
+  const idClicked = useSelector((state) => state.idClicked.value);
   useEffect(() => {
     if (idClicked) {
       setCurrentNote(

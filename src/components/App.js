@@ -14,7 +14,7 @@ const messageData = [
   {
     id: uuidv4(),
     date: "8/21/16",
-    time:" August 21, 2016 15:02 PM",
+    time: " August 21, 2016 15:02 PM",
     initialText: `#### Wow, what a cool note. Wow.
 
     **8/21/16** This is amazing note. Can you believe how grate this note is? It\`s the best note.`,
@@ -26,7 +26,7 @@ const messageData = [
   {
     id: uuidv4(),
     date: "5/15/16",
-    time:" May 15, 2016 15:02 PM",
+    time: " May 15, 2016 15:02 PM",
     initialText: `#### Can you check the flight schedule?
     
     **5/15/16** how`,
@@ -38,7 +38,7 @@ const messageData = [
   {
     id: uuidv4(),
     date: "3/23/16",
-    time:" March 23, 2016 15:02 PM",
+    time: " March 23, 2016 15:02 PM",
     initialText: `#### OSX.com daily example
     
     **3/23/16** Locked`,
@@ -55,7 +55,7 @@ function App() {
   const [notes, setNotes] = useState(messageData);
   const [idClicked, setIdClicked] = useState(null);
 
-  
+
 
   const createCollection = () => {
     if (!idb) {
@@ -121,27 +121,27 @@ function App() {
       .padStart(2, "0")}`;
     return formattedDate;
   };
-  const removeRecord=(id)=>{
-    
+  const removeRecord = (id) => {
+
     const request = idb.open("MessagesDB", 2);
-    request.onsuccess = () =>{
+    request.onsuccess = () => {
       const db = request.result;
       const tx = db.transaction("MessageStore", "readwrite");
       const store = tx.objectStore("MessageStore");
-     const requestRec=store.get(id);
-      
-     requestRec.onsuccess=()=>{
-      // console.log(requestRec.result);
-      store.delete(requestRec.result.initialText);
-     };
-     requestRec.onerror=(event)=>{
-      console.log(event);
-     }
-     tx.oncomplete = ()=> {
-      db.close();
-    };
+      const requestRec = store.get(id);
+
+      requestRec.onsuccess = () => {
+        // console.log(requestRec.result);
+        store.delete(requestRec.result.initialText);
+      };
+      requestRec.onerror = (event) => {
+        console.log(event);
+      }
+      tx.oncomplete = () => {
+        db.close();
+      };
     }
-    setNotes(notes.filter((el)=>el.initialText!=id));
+    setNotes(notes.filter((el) => el.initialText != id));
   }
 
   useEffect(() => {
@@ -213,27 +213,25 @@ function App() {
         const objectStore = db.createObjectStore("MessageStore", { keyPath: "initialText" });
       }
     };
-   
+
   }, []);
 
   useEffect(() => {
     createCollection();
-   
+
   }, [notes])
 
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Header removeRecord={removeRecord} idClicked={idClicked} notes={notes}/>}>
+        <Route path="/" element={<Header removeRecord={removeRecord} notes={notes} />}>
 
-          <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate} setIdClicked={setIdClicked}
-            idClicked={idClicked} />} >
-            {/* <Route path="/" element={<TimeHeader />}> */}
-              <Route path="/work" element={<WorkSpace notes={notes} idClicked={idClicked} />} />
-              <Route path="/new" element={<NewNote setNotes={setNotes} />} />
-              <Route path="/change" element={<ChangeNote idClicked={idClicked} notes={notes}/>}/>
-            {/* </Route> */}
+          <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate}
+          />} >
+            <Route path="/work" element={<WorkSpace notes={notes}  />} />
+            <Route path="/new" element={<NewNote setNotes={setNotes} />} />
+            <Route path="/change" element={<ChangeNote idClicked={idClicked} notes={notes} />} />
 
 
           </Route>
