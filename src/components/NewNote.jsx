@@ -29,6 +29,7 @@ const NewNote = ({ setNotes }) => {
               initialText: convertToMark(newNote),
               text: convertToMark(newNote),
               date: String(moment().format("M/D/YY")),
+              time: String(moment().format('MMMM D, YYYY [at] HH:mm A'))
             },
             ...prev,
           ]);

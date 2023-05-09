@@ -7,15 +7,16 @@ const WorkSpace = ({ notes, idClicked }) => {
   useEffect(() => {
     if (idClicked) {
       setCurrentNote(
-        notes
-          .find((el) => el.id == idClicked)
-          .text.replace(/\*\*\*\*.*?\*\*\*\*/g, "")
+        notes.find((el) => el.id == idClicked)
       );
     }
   }, [idClicked]);
 
   return (
-    <div>{currentNote && <ReactMarkdown>{currentNote}</ReactMarkdown>}</div>
+    <div className="work_space">
+      <p className="time">{currentNote.time}</p>
+      {currentNote && <ReactMarkdown>{currentNote.text.replace(/\*+.*?\*+/g, "")}</ReactMarkdown>}
+    </div>
   );
 };
 export default WorkSpace;
