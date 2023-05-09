@@ -6,6 +6,8 @@
 .App {
   display: flex;
   flex-wrap: wrap;
+  height: 100%;
+  overflow: hidden;
 
   .header {
     width: 100%;
@@ -52,7 +54,7 @@
   .sidebar {
     width: 30%;
     padding-top: 15px;
-    // height: 100vh;
+    height: 93vh;
     overflow-y: scroll;
   }
  

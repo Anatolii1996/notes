@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { HiPlus } from "react-icons/hi";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
@@ -6,26 +7,26 @@ import { AutoComplete, Modal } from "antd";
 import { SearchOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
 
-
-
-
 const Header = ({ removeRecord, idClicked, notes }) => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const { confirm } = Modal;
-const showDeleteConfirm = () => {
+  const showDeleteConfirm = () => {
     confirm({
-      title: 'Are you sure you want to delete this note?',
+      title: "Are you sure you want to delete this note?",
       icon: <ExclamationCircleFilled />,
-      content: '',
-      okText: 'Yes',
-      okType: 'danger',
-      cancelText: 'No',
+      content: "",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
       onOk() {
         removeRecord(notes.find((el) => el.id == idClicked).initialText);
+        navigate("/");
       },
       onCancel() {
-        console.log('Cancel');
+        console.log("Cancel");
       },
     });
   };
@@ -40,7 +41,8 @@ const showDeleteConfirm = () => {
 
           <BsTrash3
             className={!idClicked ? "inactive" : ""}
-            onClick={showDeleteConfirm} type="dashed"
+            onClick={showDeleteConfirm}
+            type="dashed"
             // onClick={() => {
             //   removeRecord(notes.find((el) => el.id == idClicked).initialText);
             // }}
