@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiPlus } from "react-icons/hi";
 import { BsTrash3 } from "react-icons/bs";
@@ -8,7 +7,6 @@ import { SearchOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
 
 const Header = ({ removeRecord, idClicked, notes }) => {
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const navigate = useNavigate();
 
