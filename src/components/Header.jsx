@@ -5,7 +5,7 @@ import { AutoComplete } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
 
-const Header = () => {
+const Header = ({removeRecord, idClicked, notes}) => {
   return (
     <>
       <div className="header">
@@ -14,7 +14,9 @@ const Header = () => {
             <HiPlus />
           </Link>
 
-          <BsTrash3 />
+          <BsTrash3
+           onClick={()=>{removeRecord(notes.find((el)=>el.id==idClicked).initialText)} }
+          />
           <SlNote />
         </div>
         <div className="search">

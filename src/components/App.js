@@ -115,6 +115,28 @@ function App() {
       .padStart(2, "0")}`;
     return formattedDate;
   };
+  const removeRecord=(id)=>{
+    
+    const request = idb.open("MessagesDB", 2);
+    request.onsuccess = () =>{
+      const db = request.result;
+      const tx = db.transaction("MessageStore", "readwrite");
+      const store = tx.objectStore("MessageStore");
+     const requestRec=store.get(id);
+      
+     requestRec.onsuccess=()=>{
+      // console.log(requestRec.result);
+      store.delete(requestRec.result.initialText);
+     };
+     requestRec.onerror=(event)=>{
+      console.log(event);
+     }
+     tx.oncomplete = ()=> {
+      db.close();
+    };
+    }
+    setNotes(notes.filter((el)=>el.initialText!=id));
+  }
 
   useEffect(() => {
     if (!idb) {
@@ -195,7 +217,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Header />}>
+        <Route path="/" element={<Header removeRecord={removeRecord} idClicked={idClicked} notes={notes}/>}>
 
           <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate} setIdClicked={setIdClicked}
             idClicked={idClicked} />} >
