@@ -60,14 +60,24 @@
   .work_space {
     width: 70%;
     padding: 15px;
-    .time {
-      text-align: center;
-      color: lightgrey;
-      font-weight: 500;
+    
+    h4{
       margin-bottom: 15px;
     }
   }
- 
+  .new_note{
+    width: 70%;
+    padding: 15px;
+    textarea{
+      padding: 10px;
+    }
+  }
+  .time {
+    text-align: center;
+    color: lightgrey;
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
 
   .list_item {
     padding: 10px 15px;
