@@ -10,7 +10,7 @@ const WorkSpace = ({ notes, idClicked }) => {
 
   return (
     <div>
-      {currentNote.text && <ReactMarkdown>{currentNote.text}</ReactMarkdown>}
+      {currentNote && <ReactMarkdown>{currentNote.text}</ReactMarkdown>}
     </div>
   );
 };

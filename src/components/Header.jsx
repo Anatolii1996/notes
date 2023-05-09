@@ -10,14 +10,14 @@ const Header = ({removeRecord, idClicked, notes}) => {
     <>
       <div className="header">
         <div className="btn_group">
-          <Link to="/new">
+          <Link to="/new" >
             <HiPlus />
           </Link>
 
-          <BsTrash3
+          <BsTrash3 className={!idClicked?"inactive":""}
            onClick={()=>{removeRecord(notes.find((el)=>el.id==idClicked).initialText)} }
           />
-          <Link to="/change">
+          <Link to="/change" className={!idClicked?"inactive":""}>
           <SlNote />
           </Link>
           

@@ -50,7 +50,7 @@ const idb = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB;
 
 function App() {
   const [notes, setNotes] = useState(messageData);
-  const [idClicked, setIdClicked] = useState(notes[0].id);
+  const [idClicked, setIdClicked] = useState(null);
 
   const createCollection = () => {
     if (!idb) {
@@ -211,7 +211,7 @@ function App() {
 
   useEffect(() => {
     createCollection();
-    setIdClicked(notes[0].id)
+   
   }, [notes])
 
 
@@ -223,7 +223,8 @@ function App() {
           <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate} setIdClicked={setIdClicked}
             idClicked={idClicked} />} >
             <Route path="/" element={<TimeHeader />}>
-              <Route path="/" element={<WorkSpace notes={notes} idClicked={idClicked} />} />
+              {/* <Route path="/"></Route> */}
+              <Route path="/work" element={<WorkSpace notes={notes} idClicked={idClicked} />} />
               <Route path="/new" element={<NewNote setNotes={setNotes} />} />
               <Route path="/change" element={<ChangeNote idClicked={idClicked} notes={notes}/>}/>
             </Route>

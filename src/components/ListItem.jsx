@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
 
@@ -29,12 +30,14 @@ const ListItem = ({ note, setNotes, findDate, setIdClicked, idClicked }) => {
     }
   }, []);
 
+  const navigate = useNavigate();
   
   return (
     <div
       className={`list_item ${idClicked == note.id ? "clicked" : ""}`}
       onClick={() => {
         setIdClicked(note.id);
+        navigate("/work");
       }}
     >
       <ReactMarkdown>{note.text}</ReactMarkdown>

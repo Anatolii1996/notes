@@ -30,6 +30,12 @@
       svg + a {
         margin-left: 10px;
       }
+      a{
+        color: black;
+      }
+      .inactive{
+        color: lightgray;
+      }
     }
     .search {
       background-color: beige;
