@@ -52,6 +52,8 @@ function App() {
   const [notes, setNotes] = useState(messageData);
   const [idClicked, setIdClicked] = useState(null);
 
+  
+
   const createCollection = () => {
     if (!idb) {
       console.log("Error browser");
@@ -207,6 +209,7 @@ function App() {
         const objectStore = db.createObjectStore("MessageStore", { keyPath: "initialText" });
       }
     };
+   
   }, []);
 
   useEffect(() => {
