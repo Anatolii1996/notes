@@ -11,13 +11,13 @@ const NewNote = ({ setNotes }) => {
   const convertToMark = (note) => {
     const changedHead = "#### " + note.split("\n")[0] + "\n";
     const changedBody =
-      String(`****${moment().format("M/D/YY")}****`) + " " + note.split("\n")[1];
+      String(`**${moment().format("M/D/YY")}**`) + " " + note.split("\n")[1];
     return changedHead + changedBody;
   };
 
   return (
     <div className="new_note">
-      <textarea
+      <textarea autoFocus
         value={newNote}
         onChange={(e) => {
           setNewNote(e.target.value);
