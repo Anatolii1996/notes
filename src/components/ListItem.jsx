@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
+import { useSelector, useDispatch } from 'react-redux'
+import { setClicked } from "../redux/idClickedSlice";
 
 const ListItem = ({ note, setNotes, findDate, setIdClicked, idClicked }) => {
   useEffect(() => {
@@ -31,12 +33,14 @@ const ListItem = ({ note, setNotes, findDate, setIdClicked, idClicked }) => {
   }, []);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   return (
     <div
       className={`list_item ${idClicked == note.id ? "clicked" : ""}`}
       onClick={() => {
         setIdClicked(note.id);
+        dispatch(setClicked(note.id))
         navigate("/work");
       }}
     >
