@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 
-const ChangeNote = ({ idClicked, notes }) => {
-  const [currentNote, setCurrentNote] = useState(null);
+const ChangeNote = ({ notes }) => {
+  const [currentNote, setCurrentNote] = useState("");
+  const idClicked = useSelector((state) => state.idClicked.value);
+  // const navigate = useNavigate();
+
   useEffect(() => {
-    setCurrentNote(notes.find((el) => el.id == idClicked).text);
-  }, [idClicked]);
+    const note = notes.find((el) => el.id == idClicked).text;
 
-  
+    setCurrentNote(note);
+  }, [idClicked]);
 
   return (
     <div className="change_note">
-      <textarea cols="100" rows="10" value={currentNote}>
-        
-      </textarea>
+      <textarea
+        cols="100"
+        rows="10"
+        value={currentNote}
+        onChange={() => {}}
+      ></textarea>
     </div>
   );
 };

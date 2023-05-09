@@ -59,20 +59,19 @@
     overflow-y: scroll;
   }
   .work_space {
-    width: 70%;
-    padding: 15px;
-    
+   
     h4{
       margin-bottom: 15px;
     }
   }
-  .new_note{
+  .new_note,.change_note,.work_space  {
     width: 70%;
     padding: 15px;
-    textarea{
-      padding: 10px;
-      font-family: 'Roboto', sans-serif;
-    }
+   
+  }
+  textarea{
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
   }
   .time {
     text-align: center;
