@@ -121,6 +121,10 @@
   box-shadow: none !important;
 }
 
+:where(.css-dev-only-do-not-override-yp8pcc).ant-form-item{
+  margin-bottom: 0 !important;
+}
+
 @media (max-width: 1000px) {
   .App {
     .new_note,

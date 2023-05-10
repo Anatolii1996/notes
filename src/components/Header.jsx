@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { HiPlus } from "react-icons/hi";
 import { BsTrash3 } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
-import { AutoComplete, Modal } from "antd";
+import { AutoComplete, Modal, Form } from "antd";
 import { SearchOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +19,7 @@ const Header = ({ removeRecord, notes }) => {
   const navigate = useNavigate();
 
   const { confirm } = Modal;
+  const [form] = Form.useForm();
 
   const changeData = (arr) => {
     return [
@@ -26,14 +27,16 @@ const Header = ({ removeRecord, notes }) => {
         return {
           label: el.initialText.replace(/\n/g, " ").replace(/[#*_]+/g, ""),
           value: el.initialText.replace(/\n/g, " ").replace(/[#*_]+/g, ""),
-          id: el.id
+          id: el.id,
         };
       }),
     ];
   };
 
   const onSelect = (value, obj) => {
-    dispatch(setClicked(obj.id))
+    dispatch(setClicked(obj.id));
+    form.resetFields();
+    navigate("/work");
   };
 
   useEffect(() => {
@@ -41,8 +44,6 @@ const Header = ({ removeRecord, notes }) => {
       setOptions(changeData(notes));
     }
   }, [notes]);
-
-  
 
   const showDeleteConfirm = () => {
     confirm({
@@ -85,18 +86,22 @@ const Header = ({ removeRecord, notes }) => {
               color: "#d9d9d9",
             }}
           />
-          <AutoComplete
-            options={options}
-            filterOption={true}
-            // style={{
-            //     border:0,
-            //     outline: "none",
-            //     boxShadow: 0
-            // }}
-            onSelect={onSelect}
-            // onSearch={(text) => setOptions(getPanelValue(text))}
-            placeholder="Search"
-          />
+          <Form form={form}>
+            <Form.Item name="autocomplete">
+              <AutoComplete
+                options={options}
+                filterOption={true}
+                // style={{
+                //     border:0,
+                //     outline: "none",
+                //     boxShadow: 0
+                // }}
+                onSelect={onSelect}
+                // onSearch={(text) => setOptions(getPanelValue(text))}
+                placeholder="Search"
+              />
+            </Form.Item>
+          </Form>
         </div>
       </div>
       <Outlet />
