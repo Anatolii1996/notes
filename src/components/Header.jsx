@@ -6,34 +6,43 @@ import { SlNote } from "react-icons/sl";
 import { AutoComplete, Modal } from "antd";
 import { SearchOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setClicked } from "../redux/idClickedSlice";
 
 const Header = ({ removeRecord, notes }) => {
   const [options, setOptions] = useState([]);
+
+  const idClicked = useSelector((state) => state.idClicked.value);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const { confirm } = Modal;
 
   const changeData = (arr) => {
     return [
       ...arr.map((el) => {
         return {
-          label: el.initialText.replace(/\n/g, ' ').replace(/[#*_]+/g, ''),
-          value: el.initialText.replace(/\n/g, ' ').replace(/[#*_]+/g, ''),
+          label: el.initialText.replace(/\n/g, " ").replace(/[#*_]+/g, ""),
+          value: el.initialText.replace(/\n/g, " ").replace(/[#*_]+/g, ""),
+          id: el.id
         };
       }),
     ];
   };
 
+  const onSelect = (value, obj) => {
+    dispatch(setClicked(obj.id))
+  };
+
   useEffect(() => {
     if (notes) {
-      
       setOptions(changeData(notes));
     }
   }, [notes]);
 
-  const idClicked = useSelector((state) => state.idClicked.value);
-
-  const navigate = useNavigate();
-
-  const { confirm } = Modal;
+  
 
   const showDeleteConfirm = () => {
     confirm({
@@ -78,12 +87,13 @@ const Header = ({ removeRecord, notes }) => {
           />
           <AutoComplete
             options={options}
+            filterOption={true}
             // style={{
             //     border:0,
             //     outline: "none",
             //     boxShadow: 0
             // }}
-            // onSelect={onSelect}
+            onSelect={onSelect}
             // onSearch={(text) => setOptions(getPanelValue(text))}
             placeholder="Search"
           />
