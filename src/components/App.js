@@ -213,7 +213,6 @@ function App() {
 
   useEffect(() => {
     createCollection();
-
   }, [notes])
 
 
@@ -225,7 +224,7 @@ function App() {
           <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate} />} >
             <Route path="/work" element={<WorkSpace notes={notes} />} />
             <Route path="/new" element={<NewNote setNotes={setNotes} />} />
-            <Route path="/change" element={<ChangeNote notes={notes} />} />
+            <Route path="/change" element={<ChangeNote notes={notes} setNotes={setNotes}/>} />
           </Route>
         </Route>
       </Routes>

@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
+export const convertToMark = (note) => {
+  const changedHead = "#### " + note.split("\n")[0] + "\n";
+  const changedBody =
+  String(`**${moment().format("M/D/YY")}**`) + " " + note.split("\n")[1];
+  return changedHead + changedBody;
+};
+
 const NewNote = ({ setNotes }) => {
   const [newNote, setNewNote] = useState("");
   const [currentTime, setCurrentTime] = useState(moment().format("LL HH:mm"));
@@ -16,12 +23,7 @@ const NewNote = ({ setNotes }) => {
 
   const navigate = useNavigate();
 
-  const convertToMark = (note) => {
-    const changedHead = "#### " + note.split("\n")[0] + "\n";
-    const changedBody =
-    String(`**${moment().format("M/D/YY")}**`) + " " + note.split("\n")[1];
-    return changedHead + changedBody;
-  };
+ 
 
   return (
     <div className="new_note">
