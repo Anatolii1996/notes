@@ -2,20 +2,23 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { convertToMark } from "./NewNote";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
-const ChangeNote = ({ notes, setNotes }) => {
+const ChangeNote = ({ notes, setNotes, removeRecord }) => {
   const [currentNote, setCurrentNote] = useState("");
   const [currentText, setCurrentText] = useState("");
   const idClicked = useSelector((state) => state.idClicked.value);
 
+  const navigate = useNavigate();
+
   const handleBlur = () => {
-    if (currentText) {
-      const filteredNotes = notes.filter((el)=>el.id!=currentNote.id);
-      const changeNote=notes.filter((el)=>el.id==currentNote.id).map((el)=>{
-        return {...el, text:convertToMark(currentText), initialText:convertToMark(currentText) }
-      })
-      setNotes([...filteredNotes, ...changeNote]);
-    }
+    setNotes(notes.map((note) => {
+      if (note.id === idClicked) {
+        return { ...note, text:convertToMark(currentNote.text), initialText: convertToMark(currentNote.text), };
+      }
+      return note;
+    }));
+    navigate("/")
   };
 
   useEffect(() => {
@@ -25,25 +28,26 @@ const ChangeNote = ({ notes, setNotes }) => {
     }
   }, [idClicked, notes]);
 
-  useEffect(()=>{
-    if(currentNote){
-      setCurrentText(currentNote.initialText.replace(/\*+.*?\*+/g, "").replace(/[#_]+/g, ""));
-
-    }
-  }, [currentNote])
 
   return (
     <div className="change_note">
       <p className="time">{currentNote.time}</p>
-      
+      {currentNote && (
         <textarea
           cols="100"
           rows="10"
-          value={currentText}
-          onChange={(e) => {setCurrentText(e.target.value)}}
+          value={currentNote.text
+            .replace(/\*+.*?\*+/g, "")
+            .replace(/[#_]+/g, "")}
+          onChange={(e) => {
+            setCurrentNote({
+              ...currentNote,
+              text: e.target.value
+            });
+          }}
           onBlur={handleBlur}
         ></textarea>
-      
+      )}
     </div>
   );
 };
