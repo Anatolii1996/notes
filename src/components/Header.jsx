@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiPlus } from "react-icons/hi";
 import { BsTrash3 } from "react-icons/bs";
@@ -5,13 +6,35 @@ import { SlNote } from "react-icons/sl";
 import { AutoComplete, Modal } from "antd";
 import { SearchOutlined, ExclamationCircleFilled } from "@ant-design/icons";
 import { Link, Outlet } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const Header = ({ removeRecord, notes }) => {
+  const [options, setOptions] = useState([]);
+
+  const changeData = (arr) => {
+    return [
+      ...arr.map((el) => {
+        return {
+          label: el.initialText.replace(/\n/g, ' ').replace(/[#*_]+/g, ''),
+          value: el.initialText.replace(/\n/g, ' ').replace(/[#*_]+/g, ''),
+        };
+      }),
+    ];
+  };
+
+  useEffect(() => {
+    if (notes) {
+      
+      setOptions(changeData(notes));
+    }
+  }, [notes]);
+
   const idClicked = useSelector((state) => state.idClicked.value);
+
   const navigate = useNavigate();
 
   const { confirm } = Modal;
+
   const showDeleteConfirm = () => {
     confirm({
       title: "Are you sure you want to delete this note?",
@@ -42,9 +65,6 @@ const Header = ({ removeRecord, notes }) => {
             className={!idClicked ? "inactive" : ""}
             onClick={showDeleteConfirm}
             type="dashed"
-            // onClick={() => {
-            //   removeRecord(notes.find((el) => el.id == idClicked).initialText);
-            // }}
           />
           <Link to="/change" className={!idClicked ? "inactive" : ""}>
             <SlNote />
@@ -57,7 +77,7 @@ const Header = ({ removeRecord, notes }) => {
             }}
           />
           <AutoComplete
-            // options={options}
+            options={options}
             // style={{
             //     border:0,
             //     outline: "none",
