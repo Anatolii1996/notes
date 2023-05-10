@@ -8,10 +8,11 @@ const ChangeNote = ({ notes }) => {
   // const navigate = useNavigate();
 
   useEffect(() => {
-    const note = notes.find((el) => el.id == idClicked).text;
-
-    setCurrentNote(note);
-  }, [idClicked]);
+    const note = notes.find((el) => el.id == idClicked);
+    if (note) {
+      setCurrentNote(note.text);
+    }
+  }, [idClicked, notes]);
 
   return (
     <div className="change_note">
