@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -59,19 +59,20 @@
     overflow-y: scroll;
   }
   .work_space {
-   
-    h4{
+    h4 {
       margin-bottom: 15px;
     }
   }
-  .new_note,.change_note,.work_space  {
+  .new_note,
+  .change_note,
+  .work_space {
     width: 70%;
     padding: 15px;
-   
   }
-  textarea{
+  textarea {
     padding: 10px;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
+    width: 100%;
   }
   .time {
     text-align: center;
@@ -87,6 +88,13 @@
       background-color: lightgray;
     }
     p {
+      width: 100%;
+      white-space: nowrap;
+      display: inline-block;
+      overflow-x: clip;
+      text-overflow: ellipsis;
+    }
+    h4 {
       width: 100%;
       white-space: nowrap;
       display: inline-block;
@@ -111,4 +119,25 @@
   background-color: inherit;
   padding-left: 5px;
   box-shadow: none !important;
+}
+
+@media (max-width: 1000px) {
+  .App {
+    .new_note,
+    .change_note,
+    .work_space {
+      width: 60%;
+      padding: 15px;
+    }
+    .sidebar {
+      width: 40%;
+    }
+  }
+}
+@media (max-width: 450px) {
+  .App {
+    .header{
+      flex-direction: column;
+    }
+  }
 }

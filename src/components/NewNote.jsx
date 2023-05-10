@@ -49,7 +49,7 @@ const NewNote = ({ setNotes }) => {
           }
           
         }}
-        cols="100"
+        // cols="100"
         rows="10"
       ></textarea>
     </div>
