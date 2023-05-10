@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { convertToMark } from "./NewNote";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { setCurrentItem } from "../redux/currentNoteSlice";
 
 const ChangeNote = ({ notes, setNotes, removeRecord }) => {
   const [currentNote, setCurrentNote] = useState("");
@@ -10,24 +11,32 @@ const ChangeNote = ({ notes, setNotes, removeRecord }) => {
   const idClicked = useSelector((state) => state.idClicked.value);
 
   const navigate = useNavigate();
-
-  const handleBlur = () => {
-    setNotes(notes.map((note) => {
-      if (note.id === idClicked) {
-        return { ...note, text:convertToMark(currentNote.text), initialText: convertToMark(currentNote.text), };
-      }
-      return note;
-    }));
-    navigate("/")
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const note = notes.find((el) => el.id == idClicked);
+    if (note) {
+      dispatch(setCurrentItem(note));
+      
+    }
+  }, []);
+  const noteItem = useSelector((state) => state.currentNote.value);
+
+  const handleBlur = () => {
+    removeRecord(notes.find((el) => el.id == idClicked).initialText);
+    
+    const newNoteItem = { ...noteItem, text:convertToMark(currentNote.text) , initialText: convertToMark(currentNote.text), };
+    setNotes(prevNotes => [...prevNotes, newNoteItem]);
+    navigate("/");
+  };
+  const note = notes.find((el) => el.id == idClicked);
+
+ 
+  
+  useEffect(() => {
     if (note) {
       setCurrentNote(note);
     }
   }, [idClicked, notes]);
-
 
   return (
     <div className="change_note">
@@ -42,7 +51,7 @@ const ChangeNote = ({ notes, setNotes, removeRecord }) => {
           onChange={(e) => {
             setCurrentNote({
               ...currentNote,
-              text: e.target.value
+              text: e.target.value,
             });
           }}
           onBlur={handleBlur}
