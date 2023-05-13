@@ -85,27 +85,29 @@ function App() {
       const db = request.result;
       const tx = db.transaction("MessageStore", "readwrite");
       const store = tx.objectStore("MessageStore");
+      if (notes) {
+        notes.forEach((message) => {
+          const getRequest = store.get(message.initialText);
+          getRequest.onsuccess = (event) => {
+            const existingMessage = event.target.result;
 
-      notes.forEach((message) => {
-        const getRequest = store.get(message.initialText);
-        getRequest.onsuccess = (event) => {
-          const existingMessage = event.target.result;
+            if (!existingMessage) {
+              store.add(message);
+              console.log("Message added");
+            } else {
+              console.log("Message already exists");
+            }
 
-          if (!existingMessage) {
-            store.add(message);
-            console.log("Message added");
-          } else {
-            console.log("Message already exists");
-          }
-
-          tx.oncomplete = () => {
-            db.close();
+            tx.oncomplete = () => {
+              db.close();
+            };
           };
-        };
-        getRequest.onerror = (event) => {
-          console.log("Error", event);
-        };
-      });
+          getRequest.onerror = (event) => {
+            console.log("Error", event);
+          };
+        });
+      }
+
 
       tx.oncomplete = () => {
         db.close();
@@ -135,6 +137,7 @@ function App() {
       requestRec.onsuccess = () => {
         // console.log(requestRec.result);
         store.delete(requestRec.result.initialText);
+        console.log(11111111);
       };
       requestRec.onerror = (event) => {
         console.log(event);
@@ -187,7 +190,7 @@ function App() {
                   return el.text = el.text.substring(0, start + 2) + newText + el.text.substring(end);
                 }
               }
-              
+
             });
             return newMess;
           });
@@ -224,7 +227,7 @@ function App() {
           <Route path="/" element={<Sidebar notes={notes} setNotes={setNotes} findDate={findDate} />} >
             <Route path="/work" element={<WorkSpace notes={notes} />} />
             <Route path="/new" element={<NewNote setNotes={setNotes} />} />
-            <Route path="/change" element={<ChangeNote notes={notes} setNotes={setNotes} removeRecord={removeRecord}/>} />
+            <Route path="/change" element={<ChangeNote notes={notes} setNotes={setNotes} removeRecord={removeRecord} />} />
           </Route>
         </Route>
       </Routes>
