@@ -115,8 +115,8 @@
   )
   .ant-select-selector {
   width: 150px;
-  border: 0;
-  background-color: inherit;
+  border: 0 !important;
+  background-color: inherit !important;
   padding-left: 5px;
   box-shadow: none !important;
 }
