@@ -45,7 +45,7 @@
       border-radius: 5px;
       display: flex;
       align-items: center;
-      padding-left: 90px;
+      padding-left: 5%;
       // input {
       //   width: 150px;
 
@@ -110,6 +110,16 @@
   }
 }
 
+.ant-select-show-search:where(.css-yp8pcc).ant-select:not(.ant-select-customize-input) .ant-select-selector{
+  background-color: inherit !important;
+  border: 0 !important;
+}
+:where(.css-yp8pcc)[class^="ant-form"] [class^="ant-form"], :where(.css-yp8pcc)[class*=" ant-form"] [class^="ant-form"]{
+  margin-bottom: 0 !important;
+}
+:where(.css-yp8pcc).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector{
+  width: 150px !important;
+}
 .ant-select-single:not(
     .ant-select-customize-input
   )
